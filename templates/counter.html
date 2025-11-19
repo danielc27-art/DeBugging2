@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter / Clicker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .counter-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .explanation h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .explanation ul {
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Counter / Clicker</h1>
+        
+        <!-- Counter Display: Shows the current count value -->
+        <div class="counter-display" id="counter">0</div>
+        
+        <!-- Increment Button: When clicked, should increase the counter by 1 -->
+        <button onclick="incrementCounter()">Click Me!</button>
+        
+        <div class="explanation">
+            <h3>How This Page Should Work:</h3>
+            <ul>
+                <li><strong>Counter Display (div#counter):</strong> Displays the current count number. Starts at 0.</li>
+                <li><strong>Click Button:</strong> When clicked, calls the <code>incrementCounter()</code> function which should:
+                    <ul>
+                        <li>Get the current value from the counter display</li>
+                        <li>Add 1 to that value</li>
+                        <li>Update the display with the new value</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // This function should increment the counter by 1 each time it's called
+        function incrementCounter() {
+            // Get the counter element
+            let counterElement = document.getElementById('counter');
+            
+            // Get the current value and convert it to a number
+            let currentValue = parseInt(counterElement.textContent);
+            
+            // Increment by 1
+            currentValue = currentValue + 1;
+            
+            // Update the display
+            counterElement.textContent = currentValue;
+        }
+    </script>
+</body>
+</html>
+

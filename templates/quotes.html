@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .quote-display {
+            min-height: 150px;
+            padding: 30px;
+            margin: 30px 0;
+            background-color: #fff3e0;
+            border-left: 5px solid #FF9800;
+            border-radius: 5px;
+            font-size: 20px;
+            font-style: italic;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .author {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #666;
+            font-style: normal;
+        }
+        button {
+            background-color: #FF9800;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #f57c00;
+        }
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fff3e0;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .explanation h3 {
+            margin-top: 0;
+            color: #e65100;
+        }
+        .explanation ul {
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Quote Generator</h1>
+        
+        <!-- Quote Display: Shows the randomly selected quote and author -->
+        <div class="quote-display" id="quoteDisplay">
+            <div>
+                <div id="quoteText">Click the button to get a random quote!</div>
+                <div class="author" id="quoteAuthor"></div>
+            </div>
+        </div>
+        
+        <!-- Generate Button: When clicked, should pick and display a random quote -->
+        <button onclick="generateQuote()">Get Random Quote</button>
+        
+        <div class="explanation">
+            <h3>How This Page Should Work:</h3>
+            <ul>
+                <li><strong>Quote Display (div#quoteDisplay):</strong> Container that shows the quote text and author. Initially shows a placeholder message.</li>
+                <li><strong>Quote Text (div#quoteText):</strong> Displays the quote message.</li>
+                <li><strong>Quote Author (div#quoteAuthor):</strong> Displays the author of the quote.</li>
+                <li><strong>Generate Button:</strong> When clicked, should:
+                    <ul>
+                        <li>Select a random quote from a predefined array of quotes</li>
+                        <li>Update the quote text element with the selected quote</li>
+                        <li>Update the author element with the quote's author</li>
+                    </ul>
+                </li>
+                <li><strong>Quotes Array:</strong> Contains multiple quote objects, each with a "text" and "author" property. The function should randomly pick one each time.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Array of quotes with text and author
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "Life is what happens to you while you're busy making other plans.", author: "John Lennon" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle" },
+            { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+            { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" }
+        ];
+        
+        // This function generates and displays a random quote
+        function generateQuote() {
+            // Generate a random index between 0 and the length of the quotes array
+            let randomIndex = Math.floor(Math.random() * quotes.length);
+            
+            // Get the quote at that random index
+            let selectedQuote = quotes[randomIndex];
+            
+            // Update the quote text element
+            document.getElementById('quoteText').textContent = selectedQuote.text;
+            
+            // Update the author element
+            document.getElementById('quoteAuthor').textContent = "— " + selectedQuote.author;
+        }
+    </script>
+</body>
+</html>
+
