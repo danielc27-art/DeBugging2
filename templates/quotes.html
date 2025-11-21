@@ -1,77 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Quote Generator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 700px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        .quote-display {
-            min-height: 150px;
-            padding: 30px;
-            margin: 30px 0;
-            background-color: #fff3e0;
-            border-left: 5px solid #FF9800;
-            border-radius: 5px;
-            font-size: 20px;
-            font-style: italic;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .author {
-            margin-top: 15px;
-            font-size: 16px;
-            color: #666;
-            font-style: normal;
-        }
-        button {
-            background-color: #FF9800;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #f57c00;
-        }
-        .explanation {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #fff3e0;
-            border-radius: 5px;
-            text-align: left;
-        }
-        .explanation h3 {
-            margin-top: 0;
-            color: #e65100;
-        }
-        .explanation ul {
-            line-height: 1.8;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+{% extends "base.html" %}
+
+{% block title %}Random Quote Generator{% endblock %}
+
+{% block content %}
+    <div class="quotes-container">
         <h1>Random Quote Generator</h1>
         
         <!-- Quote Display: Shows the randomly selected quote and author -->
@@ -83,9 +15,9 @@
         </div>
         
         <!-- Generate Button: When clicked, should pick and display a random quote -->
-        <button onclick="generateQuote()">Get Random Quote</button>
+        <button class="quote-btn" onclick="generateQuote()">Get Random Quote</button>
         
-        <div class="explanation">
+        <div class="quotes-explanation">
             <h3>How This Page Should Work:</h3>
             <ul>
                 <li><strong>Quote Display (div#quoteDisplay):</strong> Container that shows the quote text and author. Initially shows a placeholder message.</li>
@@ -102,7 +34,9 @@
             </ul>
         </div>
     </div>
+{% endblock %}
 
+{% block scripts %}
     <script>
         // Array of quotes with text and author
         const quotes = [
@@ -131,6 +65,5 @@
             document.getElementById('quoteAuthor').textContent = "— " + selectedQuote.author;
         }
     </script>
-</body>
-</html>
+{% endblock %}
 

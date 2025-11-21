@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+    <div class="chat-container">
+        <h1>Chat</h1>
+        <div id="chat-messages"></div>
+        <div class="chat-input-group">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        var conversation = [];
+        
+        function sendMessage() {
+            var input = document.getElementById('user-input');
+            var message = input.value.trim();
+            if (message === '') return;
+            
+            addMessage('user', message);
+            input.value = '';
+            
+            conversation.push({role: 'user', content: message});
+            
+            fetch('/chat-stream', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({conversation: conversation})
+            })
+            .then(function(response) {
+                var reader = response.body.getReader();
+                var decoder = new TextDecoder();
+                var assistantMessage = '';
+                var messageDiv = addMessage('assistant', '');
+                
+                function readChunk() {
+                    reader.read().then(function(result) {
+                        if (result.done) {
+                            conversation.push({role: 'assistant', content: assistantMessage});
+                            return;
+                        }
+                        
+                        var chunk = decoder.decode(result.value);
+                        var lines = chunk.split('\n');
+                        
+                        for (var i = 0; i < lines.length; i++) {
+                            if (lines[i].startsWith('data: ')) {
+                                var data = lines[i].substring(6);
+                                if (data === '[DONE]') {
+                                    return;
+                                }
+                                assistantMessage += data;
+                                messageDiv.textContent = assistantMessage;
+                            }
+                        }
+                        
+                        readChunk();
+                    });
+                }
+                
+                readChunk();
+            });
+        }
+        
+        function addMessage(role, text) {
+            var container = document.getElementById('chat-messages');
+            var div = document.createElement('div');
+            div.className = 'chat-message chat-' + role;
+            div.textContent = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            return div;
+        }
+        
+        document.getElementById('user-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+{% endblock %}
+

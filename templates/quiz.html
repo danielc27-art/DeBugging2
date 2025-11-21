@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Multiple Choice Quiz{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Multiple Choice Quiz</h1>
+        <button onclick="loadQuestions()">Load Questions</button>
+        <div id="questions"></div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        var questions = [];
+        
+        function checkAnswer(questionIndex, optionIndex) {
+            if (questions[questionIndex].correct === optionIndex) {
+                alert('Correct!');
+            } else {
+                alert('Wrong! The correct answer is: ' + questions[questionIndex].options[questions[questionIndex].correct]);
+            }
+        }
+        
+        function loadQuestions() {
+            fetch('/question-data')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    questions = data;
+                    
+                    var container = document.getElementById('questions');
+                    container.innerHTML = '';
+                    
+                    for (var i = 0; i < questions.length; i++) {
+                        var q = questions[i];
+                        var div = document.createElement('div');
+                        div.className = 'question-container';
+                        div.innerHTML = '<div class="question-text">' + q.question + '</div><ul class="options-list">';
+                        
+                        for (var j = 0; j < q.options.length; j++) {
+                            div.innerHTML += '<li><button class="option-button" onclick="checkAnswer(' + i + ', ' + j + ')">' + q.options[j] + '</button></li>';
+                        }
+                        div.innerHTML += '</ul>';
+                        container.appendChild(div);
+                    }
+                });
+        }
+    </script>
+{% endblock %}
+

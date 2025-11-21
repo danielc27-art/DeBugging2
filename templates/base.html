@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}JavaScript Debugging Practice{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-brand">JavaScript Debugging Practice</a>
+            <ul class="nav-links">
+                <li><a href="/"{% if request.endpoint == 'index' %} class="active"{% endif %}>Home</a></li>
+                <li><a href="/counter"{% if request.endpoint == 'counter' %} class="active"{% endif %}>Counter</a></li>
+                <li><a href="/todo"{% if request.endpoint == 'todo' %} class="active"{% endif %}>ToDo</a></li>
+                <li><a href="/quotes"{% if request.endpoint == 'quotes' %} class="active"{% endif %}>Quotes</a></li>
+                <li><a href="/quiz"{% if request.endpoint == 'quiz' %} class="active"{% endif %}>Quiz</a></li>
+                <li><a href="/flashcards"{% if request.endpoint == 'flashcards' %} class="active"{% endif %}>Flashcards</a></li>
+                <li><a href="/chat"{% if request.endpoint == 'chat' %} class="active"{% endif %}>Chat</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+

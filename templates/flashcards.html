@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Vocabulary Flashcards{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Vocabulary Flashcards</h1>
+        <button onclick="loadFlashcards()">Load Flashcards</button>
+        <div id="flashcards"></div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        var flashcards = [];
+        
+        function showDefinition(index) {
+            var wordDiv = document.getElementById('word-' + index);
+            var defDiv = document.getElementById('def-' + index);
+            if (wordDiv.style.display === 'none') {
+                wordDiv.style.display = 'block';
+                defDiv.style.display = 'none';
+            } else {
+                wordDiv.style.display = 'none';
+                defDiv.style.display = 'block';
+            }
+        }
+        
+        function loadFlashcards() {
+            fetch('/flashcard-data')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    flashcards = data;
+                    
+                    var container = document.getElementById('flashcards');
+                    container.innerHTML = '';
+                    
+                    for (var i = 0; i < flashcards.length; i++) {
+                        var card = flashcards[i];
+                        var div = document.createElement('div');
+                        div.className = 'flashcard';
+                        div.setAttribute('onclick', 'showDefinition(' + i + ')');
+                        div.innerHTML = '<div id="word-' + i + '" class="flashcard-word">' + card.word + '</div>' +
+                            '<div id="def-' + i + '" class="flashcard-definition" style="display: none;">' + card.definition + '</div>';
+                        container.appendChild(div);
+                    }
+                });
+        }
+    </script>
+{% endblock %}
+
