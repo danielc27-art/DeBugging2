@@ -3,6 +3,13 @@
 {% block title %}Random Quote Generator{% endblock %}
 
 {% block content %}
+    <button class="info-button" onclick="openModal()" title="How this page should work">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+    
     <div class="quotes-container">
         <h1>Random Quote Generator</h1>
         
@@ -16,24 +23,24 @@
         
         <!-- Generate Button: When clicked, should pick and display a random quote -->
         <button class="quote-btn" onclick="generateQuote()">Get Random Quote</button>
-        
-        <div class="quotes-explanation">
-            <h3>How This Page Should Work:</h3>
-            <ul>
-                <li><strong>Quote Display (div#quoteDisplay):</strong> Container that shows the quote text and author. Initially shows a placeholder message.</li>
-                <li><strong>Quote Text (div#quoteText):</strong> Displays the quote message.</li>
-                <li><strong>Quote Author (div#quoteAuthor):</strong> Displays the author of the quote.</li>
-                <li><strong>Generate Button:</strong> When clicked, should:
-                    <ul>
-                        <li>Select a random quote from a predefined array of quotes</li>
-                        <li>Update the quote text element with the selected quote</li>
-                        <li>Update the author element with the quote's author</li>
-                    </ul>
-                </li>
-                <li><strong>Quotes Array:</strong> Contains multiple quote objects, each with a "text" and "author" property. The function should randomly pick one each time.</li>
-            </ul>
-        </div>
     </div>
+{% endblock %}
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Quote Display (div#quoteDisplay):</strong> Container that shows the quote text and author. Initially shows a placeholder message.</li>
+        <li><strong>Quote Text (div#quoteText):</strong> Displays the quote message.</li>
+        <li><strong>Quote Author (div#quoteAuthor):</strong> Displays the author of the quote.</li>
+        <li><strong>Generate Button:</strong> When clicked, should:
+            <ul>
+                <li>Select a random quote from a predefined array of quotes</li>
+                <li>Update the quote text element with the selected quote</li>
+                <li>Update the author element with the quote's author</li>
+            </ul>
+        </li>
+        <li><strong>Quotes Array:</strong> Contains multiple quote objects, each with a "text" and "author" property. The function should randomly pick one each time.</li>
+    </ul>
 {% endblock %}
 
 {% block scripts %}
@@ -53,16 +60,16 @@
         // This function generates and displays a random quote
         function generateQuote() {
             // Generate a random index between 0 and the length of the quotes array
-            let randomIndex = Math.floor(Math.random() * quotes.length);
+            let randomIndex = Math.floor(Math.random() * _____________________);
             
             // Get the quote at that random index
-            let selectedQuote = quotes[index];
+            let selectedQuote = quotes[__________________];
             
             // Update the quote text element
             document.getElementById('quoteText').textContent = selectedQuote.text;
             
             // Update the author element
-            document.getElementById('quoteAuthor').textContent = "— " + selectedQuote.author;
+            document.getElementById('quoteAuthor').textContent = "— " + selectedQuote.__________________;
         }
     </script>
 {% endblock %}

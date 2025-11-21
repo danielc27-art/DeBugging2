@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}JavaScript Debugging Practice{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -19,6 +19,7 @@
                 <li><a href="/quiz"{% if request.endpoint == 'quiz' %} class="active"{% endif %}>Quiz</a></li>
                 <li><a href="/flashcards"{% if request.endpoint == 'flashcards' %} class="active"{% endif %}>Flashcards</a></li>
                 <li><a href="/chat"{% if request.endpoint == 'chat' %} class="active"{% endif %}>Chat</a></li>
+                <li><a href="/timeline"{% if request.endpoint == 'timeline' %} class="active"{% endif %}>Timeline</a></li>
             </ul>
         </div>
     </nav>
@@ -26,6 +27,45 @@
     <div class="content-wrapper">
         {% block content %}{% endblock %}
     </div>
+    
+    <!-- Info Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modal-body">
+                {% block modal_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('infoModal');
+        const closeBtn = document.querySelector('.modal-close');
+        
+        function openModal() {
+            modal.style.display = 'block';
+        }
+        
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+        
+        // Close modal when clicking the X
+        if (closeBtn) {
+            closeBtn.onclick = closeModal;
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Make openModal available globally
+        window.openModal = openModal;
+    </script>
     
     {% block scripts %}{% endblock %}
 </body>

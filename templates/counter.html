@@ -3,6 +3,13 @@
 {% block title %}Counter / Clicker{% endblock %}
 
 {% block content %}
+    <button class="info-button" onclick="openModal()" title="How this page should work">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+    
     <div class="counter-container">
         <h1>Counter / Clicker</h1>
         
@@ -11,21 +18,21 @@
         
         <!-- Increment Button: When clicked, should increase the counter by 1 -->
         <button class="counter-btn" onclick="incrementCounter()">Click Me!</button>
-        
-        <div class="explanation">
-            <h3>How This Page Should Work:</h3>
-            <ul>
-                <li><strong>Counter Display (div#counter):</strong> Displays the current count number. Starts at 0.</li>
-                <li><strong>Click Button:</strong> When clicked, calls the <code>incrementCounter()</code> function which should:
-                    <ul>
-                        <li>Get the current value from the counter display</li>
-                        <li>Add 1 to that value</li>
-                        <li>Update the display with the new value</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
     </div>
+{% endblock %}
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Counter Display (div#counter):</strong> Displays the current count number. Starts at 0.</li>
+        <li><strong>Click Button:</strong> When clicked, calls the <code>incrementCounter()</code> function which should:
+            <ul>
+                <li>Get the current value from the counter display</li>
+                <li>Add 1 to that value</li>
+                <li>Update the display with the new value</li>
+            </ul>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block scripts %}

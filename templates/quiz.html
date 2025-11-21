@@ -7,11 +7,41 @@
 {% endblock %}
 
 {% block content %}
+    <button class="info-button" onclick="openModal()" title="How this page should work">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+    
     <div class="container">
         <h1>Multiple Choice Quiz</h1>
         <button onclick="loadQuestions()">Load Questions</button>
         <div id="questions"></div>
     </div>
+{% endblock %}
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Load Questions Button:</strong> When clicked, should:
+            <ul>
+                <li>Fetch quiz questions from the <code>/question-data</code> endpoint</li>
+                <li>Parse the JSON response</li>
+                <li>Display each question with its multiple choice options</li>
+                <li>Each option button should call <code>checkAnswer()</code> when clicked</li>
+            </ul>
+        </li>
+        <li><strong>Questions Container (div#questions):</strong> Container that holds all the quiz questions. Starts empty.</li>
+        <li><strong>checkAnswer(questionIndex, optionIndex):</strong> This function should:
+            <ul>
+                <li>Check if the selected option matches the correct answer</li>
+                <li>Display feedback to the user (correct or incorrect)</li>
+                <li>Show the correct answer if the user was wrong</li>
+            </ul>
+        </li>
+        <li><strong>Question Data:</strong> Each question object has a "question" string, "options" array, and "correct" index number.</li>
+    </ul>
 {% endblock %}
 
 {% block scripts %}
@@ -30,14 +60,13 @@
             fetch('/question-data')
                 .then(function(response) { return response.json(); })
                 .then(function(data) {
-                    console.log(data);
                     questions = data.questions;
                     console.log(questions);
                     var container = document.getElementById('questions');
                     container.innerHTML = '';
                     
                     for (var i = 0; i < questions.length; i++) {
-                        var q = questions[i];
+                        var q = ___________________;
                         var div = document.createElement('div');
                         div.className = 'question-container';
                         div.innerHTML = '<div class="question-text">' + q.question + '</div><ul class="options-list">';
@@ -46,7 +75,7 @@
                             div.innerHTML += '<li><button class="option-button" onclick="checkAnswer(' + i + ', ' + j + ')">' + q.options[j] + '</button></li>';
                         }
                         div.innerHTML += '</ul>';
-                        container.appendChild(div);
+                        container.appendChild(__________________);
                     }
                 });
         }

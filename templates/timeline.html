@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}Timeline - JavaScript Debugging Practice{% endblock %}
+
+{% block content %}
+<button class="info-button" onclick="openModal()" title="How this page should work">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+</button>
+
+<div class="timeline-container">
+    <h1>Interactive Timeline</h1>
+    <p class="subtitle">Click on events to learn more</p>
+    
+    <div id="timeline-canvas-container">
+        <div id="p5-canvas"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Timeline Canvas:</strong> Uses P5.js to draw an interactive timeline visualization.</li>
+        <li><strong>Timeline Events:</strong> Events are stored in the <code>timelineEvents</code> array, each with a year, title, and description.</li>
+        <li><strong>setup():</strong> Initializes the canvas and calculates x positions for each event based on their year.</li>
+        <li><strong>draw():</strong> Continuously draws:
+            <ul>
+                <li>The timeline line</li>
+                <li>Year markers along the timeline</li>
+                <li>Event circles positioned by year</li>
+                <li>Event details box when an event is selected</li>
+            </ul>
+        </li>
+        <li><strong>mousePressed():</strong> When the user clicks:
+            <ul>
+                <li>Checks if an event circle was clicked</li>
+                <li>Toggles the selection of that event</li>
+                <li>Selected events show their details in a box at the bottom</li>
+            </ul>
+        </li>
+        <li><strong>Event Interaction:</strong> Hovering over events shows the title and year above the circle. Clicking selects the event and displays full details.</li>
+    </ul>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
+<script>
+// Timeline events data
+const timelineEvents = [
+    { year: 1969, title: "Moon Landing", description: "Apollo 11 lands on the moon" },
+    { year: 1989, title: "World Wide Web", description: "Tim Berners-Lee invents the World Wide Web" },
+    { year: 1995, title: "JavaScript Created", description: "Brendan Eich creates JavaScript" },
+    { year: 2007, title: "iPhone Released", description: "Apple releases the first iPhone" },
+    { year: 2010, title: "iPad Introduced", description: "Apple introduces the iPad tablet" },
+    { year: 2015, title: "ES6 Released", description: "ECMAScript 2015 (ES6) specification released" },
+    { year: 2020, title: "COVID-19 Pandemic", description: "Global pandemic changes the world" },
+    { year: 2023, title: "AI Revolution", description: "Large language models become mainstream" }
+];
+
+let events = [];
+let startYear = 1960;
+let endYear = 2025;
+let timelineX = 50;
+let timelineY;
+let timelineWidth;
+let selectedEvent = null;
+
+function setup() {
+    const container = document.getElementById('p5-canvas');
+    const canvas = createCanvas(container.offsetWidth, 600);
+    canvas.parent('p5-canvas');
+    
+    timelineY = height / 2;
+    timelineWidth = width - 100;
+    
+    // Calculate x position for each event based on its year
+    events = timelineEvents.map(event => ({
+        ...event,
+        x: map(event.year, startYear, endYear, timelineX, timelineX + timelineWidth),
+        y: timelineY,
+        radius: 12
+    }));
+}
+
+function draw() {
+    background(245, 245, 250);
+    
+    // Draw timeline line
+    stroke(100);
+    strokeWeight(3);
+    line(timelineX, timelineY, timelineX + timelineWidth, timelineY);
+    
+    // Draw year markers
+    drawYearMarkers();
+    
+    // Draw all events
+    events.forEach(event => {
+        drawEvent(event);
+    });
+    
+    // Draw selected event details
+    if (selectedEvent) {
+        drawEventDetails(selectedEvent);
+    }
+}
+
+function drawYearMarkers() {
+    const yearStep = 10;
+    textAlign(CENTER);
+    textSize(10);
+    fill(100);
+    noStroke();
+    
+    for (let year = startYear; year <= endYear; year += yearStep) {
+        const x = map(year, startYear, endYear, timelineX, timelineX + timelineWidth);
+        
+        // Draw tick mark
+        stroke(100);
+        strokeWeight(1);
+        line(x, timelineY - 5, x, timelineY + 5);
+        
+        // Draw year label
+        text(year, x, timelineY - 15);
+    }
+}
+
+function drawEvent(event) {
+    const x = event.x;
+    const y = event.y;
+    
+    // Check if mouse is over this event
+    const distance = dist(mouseX, mouseY, x, y);
+    const isHovered = ____________ < event.radius + 5;
+    
+    // Draw line from timeline to event label
+    stroke(150, 150, 200);
+    strokeWeight(1);
+    line(x, y, x, y - 80);
+    
+    // Draw event circle
+    if (event === selectedEvent) {
+        fill(76, 175, 80);  // Green when selected
+        stroke(56, 142, 60);
+        strokeWeight(2);
+    } else if (isHovered) {
+        fill(100, 181, 246);  // Blue when hovered
+        stroke(66, 165, 245);
+        strokeWeight(2);
+    } else {
+        fill(144, 202, 249);  // Light blue normally
+        stroke(100, 181, 246);
+        strokeWeight(1);
+    }
+    
+    circle(x, y, event.radius * 2);
+    
+    // Draw event title above the circle
+    if (isHovered || event === selectedEvent) {
+        textAlign(CENTER);
+        textSize(12);
+        fill(50);
+        noStroke();
+        text(event.title, x, y - 95);
+        textSize(10);
+        fill(100);
+        text(event.year, x, y - 80);
+    }
+}
+
+function drawEventDetails(event) {
+    // Draw a box with event details at the bottom
+    const boxX = 20;
+    const boxY = height - 120;
+    const boxWidth = width - 40;
+    const boxHeight = 100;
+    
+    // Draw background box
+    fill(230, 240, 255);
+    stroke(100, 181, 246);
+    strokeWeight(2);
+    rect(boxX, boxY, boxWidth, boxHeight, 5);
+    
+    // Draw text
+    textAlign(LEFT);
+    fill(50);
+    noStroke();
+    textSize(18);
+    textStyle(BOLD);
+    text(event.title + " (" + event.year + ")", boxX + 15, boxY + 30);
+    textSize(14);
+    textStyle(NORMAL);
+    fill(80);
+    text(event.description, boxX + 15, boxY + 55);
+}
+
+function mousePressed() {
+    // Check if user clicked on an event
+    let clickedEvent = null;
+    for (let event of events) {
+        const distance = dist(mouseX, _____________, event.x, event.y);
+        if (distance < event.radius + 5) {
+            clickedEvent = event;
+            break;
+        }
+    }
+    
+    // Toggle selection (click again to deselect)
+    if (clickedEvent) {
+        if (selectedEvent === clickedEvent) {
+            selectedEvent = null;  // Deselect if clicking the same event
+        } else {
+            selectedEvent = __________________;  // Select the clicked event
+        }
+    }
+}
+
+function windowResized() {
+    const container = document.getElementById('p5-canvas');
+    resizeCanvas(container.offsetWidth, 600);
+    timelineWidth = width - 100;
+    
+    // Recalculate event positions
+    events.forEach(event => {
+        event.x = map(event.year, startYear, endYear, timelineX, timelineX + timelineWidth);
+    });
+}
+</script>
+{% endblock %}
+

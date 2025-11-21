@@ -7,11 +7,41 @@
 {% endblock %}
 
 {% block content %}
+    <button class="info-button" onclick="openModal()" title="How this page should work">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+    
     <div class="container">
         <h1>Vocabulary Flashcards</h1>
         <button onclick="loadFlashcards()">Load Flashcards</button>
         <div id="flashcards"></div>
     </div>
+{% endblock %}
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Load Flashcards Button:</strong> When clicked, should:
+            <ul>
+                <li>Fetch flashcard data from the <code>/flashcard-data</code> endpoint</li>
+                <li>Parse the JSON response</li>
+                <li>Create a flashcard element for each word/definition pair</li>
+                <li>Each flashcard should be clickable to flip between word and definition</li>
+            </ul>
+        </li>
+        <li><strong>Flashcards Container (div#flashcards):</strong> Container that holds all flashcard elements. Starts empty.</li>
+        <li><strong>showDefinition(index):</strong> This function should:
+            <ul>
+                <li>Toggle the display of the word and definition for a specific flashcard</li>
+                <li>When word is visible, hide it and show definition</li>
+                <li>When definition is visible, hide it and show word</li>
+            </ul>
+        </li>
+        <li><strong>Flashcard Data:</strong> Each flashcard object has a "word" string and "definition" string.</li>
+    </ul>
 {% endblock %}
 
 {% block scripts %}

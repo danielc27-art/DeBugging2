@@ -3,6 +3,13 @@
 {% block title %}ToDo List{% endblock %}
 
 {% block content %}
+    <button class="info-button" onclick="openModal()" title="How this page should work">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+    
     <div class="todo-container">
         <h1>ToDo List</h1>
         
@@ -17,29 +24,29 @@
         
         <!-- Task List: Container for all task items -->
         <ul id="taskList"></ul>
-        
-        <div class="todo-explanation">
-            <h3>How This Page Should Work:</h3>
-            <ul>
-                <li><strong>Input Field (input#taskInput):</strong> User types a task description here. Should be cleared after adding a task.</li>
-                <li><strong>Add Button:</strong> When clicked, should:
-                    <ul>
-                        <li>Get the text from the input field</li>
-                        <li>Create a new list item with the task text</li>
-                        <li>Add a "Remove" button to each task item</li>
-                        <li>Append the new item to the task list</li>
-                        <li>Clear the input field</li>
-                    </ul>
-                </li>
-                <li><strong>Task List (ul#taskList):</strong> Container that holds all task items. Starts empty.</li>
-                <li><strong>Remove Button (on each task):</strong> When clicked, should:
-                    <ul>
-                        <li>Remove that specific task item from the list</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
     </div>
+{% endblock %}
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Input Field (input#taskInput):</strong> User types a task description here. Should be cleared after adding a task.</li>
+        <li><strong>Add Button:</strong> When clicked, should:
+            <ul>
+                <li>Get the text from the input field</li>
+                <li>Create a new list item with the task text</li>
+                <li>Add a "Remove" button to each task item</li>
+                <li>Append the new item to the task list</li>
+                <li>Clear the input field</li>
+            </ul>
+        </li>
+        <li><strong>Task List (ul#taskList):</strong> Container that holds all task items. Starts empty.</li>
+        <li><strong>Remove Button (on each task):</strong> When clicked, should:
+            <ul>
+                <li>Remove that specific task item from the list</li>
+            </ul>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block scripts %}

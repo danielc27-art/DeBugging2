@@ -3,6 +3,13 @@
 {% block title %}Chat{% endblock %}
 
 {% block content %}
+    <button class="info-button" onclick="openModal()" title="How this page should work">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+    
     <div class="chat-container">
         <h1>Chat</h1>
         <div id="chat-messages"></div>
@@ -11,6 +18,33 @@
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
+{% endblock %}
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Chat Messages Container (div#chat-messages):</strong> Displays all chat messages. Starts empty.</li>
+        <li><strong>User Input (input#user-input):</strong> Text field where the user types their message.</li>
+        <li><strong>Send Button:</strong> When clicked, should:
+            <ul>
+                <li>Get the text from the input field</li>
+                <li>Add the user message to the chat display</li>
+                <li>Send the message to the <code>/chat-stream</code> endpoint</li>
+                <li>Handle the streaming response and display assistant messages as they arrive</li>
+                <li>Clear the input field</li>
+            </ul>
+        </li>
+        <li><strong>sendMessage():</strong> This function should:
+            <ul>
+                <li>Add user message to the conversation array</li>
+                <li>Call <code>addMessage()</code> to display the user's message</li>
+                <li>Make a POST request to <code>/chat-stream</code> with the conversation history</li>
+                <li>Process the streaming response and update the assistant message in real-time</li>
+            </ul>
+        </li>
+        <li><strong>addMessage(role, text):</strong> Creates and displays a message bubble with the specified role (user or assistant) and text.</li>
+        <li><strong>Streaming Response:</strong> The response comes in chunks prefixed with "data: ". Each chunk should be appended to the assistant's message.</li>
+    </ul>
 {% endblock %}
 
 {% block scripts %}

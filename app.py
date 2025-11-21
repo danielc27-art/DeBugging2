@@ -41,6 +41,10 @@ def flashcards():
 def chat():
     return render_template("chat.html")
 
+@app.route("/timeline")
+def timeline():
+    return render_template("timeline.html")
+
 @app.route("/question-data")
 def question_data():
     
@@ -138,4 +142,4 @@ def chat_stream():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8001)
+    app.run(debug=True, port=8000)
