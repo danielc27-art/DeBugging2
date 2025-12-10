@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
+
 {% block title %}Counter / Clicker{% endblock %}
+
 
 {% block content %}
     <button class="info-button" onclick="openModal()" title="How this page should work">
@@ -9,17 +11,18 @@
             <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
     </button>
-    
+   
     <div class="counter-container">
         <h1>Counter / Clicker</h1>
-        
+       
         <!-- Counter Display: Shows the current count value -->
         <div class="counter-display" id="counter">0</div>
-        
+       
         <!-- Increment Button: When clicked, should increase the counter by 1 -->
         <button class="counter-btn" onclick="incrementCounter()">Click Me!</button>
     </div>
 {% endblock %}
+
 
 {% block modal_content %}
     <h3>How This Page Should Work:</h3>
@@ -35,22 +38,23 @@
     </ul>
 {% endblock %}
 
+
 {% block scripts %}
     <script>
         // This function should increment the counter by 1 each time it's called
         function incrementCounter() {
             // Get the counter element
             let counterElement = document.getElementById('counter');
-            
+           
             // Get the current value and convert it to a number
             let currentValue = parseInt(counterElement.textContent);
-            
+           
             // Increment by 1
-            currentValue =  + 1;
-            
+            // currentValue =  + 1;
+            currentValue = currentValue +1
+           
             // Update the display
             counterElement.textContent = currentValue;
         }
     </script>
 {% endblock %}
-

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
+
 {% block title %}ToDo List{% endblock %}
+
 
 {% block content %}
     <button class="info-button" onclick="openModal()" title="How this page should work">
@@ -9,23 +11,24 @@
             <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
     </button>
-    
+   
     <div class="todo-container">
         <h1>ToDo List</h1>
-        
+       
         <!-- Input Group: Contains the input field and Add button -->
         <div class="input-group">
             <!-- Task Input: User types their task here -->
             <input type="text" id="taskInput" placeholder="Enter a new task...">
-            
+           
             <!-- Add Button: When clicked, should add the task to the list -->
             <button class="add-btn" onclick="addTask()">Add</button>
         </div>
-        
+       
         <!-- Task List: Container for all task items -->
         <ul id="taskList"></ul>
     </div>
 {% endblock %}
+
 
 {% block modal_content %}
     <h3>How This Page Should Work:</h3>
@@ -49,30 +52,31 @@
     </ul>
 {% endblock %}
 
+
 {% block scripts %}
     <script>
         // This function adds a new task to the list
         function addTask() {
             // Get the input element
             let inputElement = document.getElementById('taskInput');
-            
+           
             // Get the text value from the input
             let taskText = inputElement.value.trim();
-            
+           
             // Only add if the input is not empty
             if (taskText !== '') {
                 // Get the task list container
                 let taskList = document.getElementById('taskList');
-                
+               
                 // Create a new list item
                 let listItem = document.createElement('li');
                 listItem.className = 'task-item';
-                
+               
                 // Create the task text element
                 let taskTextElement = document.createElement('span');
                 taskTextElement.className = 'task-text';
                 taskTextElement.textContent = taskText;
-                
+               
                 // Create the remove button
                 let removeButton = document.createElement('button');
                 removeButton.className = 'remove-btn';
@@ -80,25 +84,28 @@
                 removeButton.onclick = function() {
                     removeTask(listItem);
                 };
-                
+               
                 // Add text and button to the list item
-                listItem.appendChild(element);
+                // listItem.appendChild(element);
+                listItem.appendChild(taskTextElement);
+
+
                 listItem.appendChild(removeButton);
-                
+               
                 // Add the list item to the task list
                 taskList.appendChild(listItem);
-                
+               
                 // Clear the input field
                 inputElement.value = '';
             }
         }
-        
+       
         // This function removes a task from the list
         function removeTask(taskItem) {
             // Remove the task item from its parent (the task list)
             taskItem.parentNode.removeChild(taskItem);
         }
-        
+       
         // Allow adding tasks by pressing Enter key
         document.getElementById('taskInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
@@ -107,4 +114,5 @@
         });
     </script>
 {% endblock %}
+
 
