@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+
+{% block title %}Random Quote Generator{% endblock %}
+
+
+{% block content %}
+    <button class="info-button" onclick="openModal()" title="How this page should work">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M10 6v8M10 4v0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+   
+    <div class="quotes-container">
+        <h1>Random Quote Generator</h1>
+       
+        <!-- Quote Display: Shows the randomly selected quote and author -->
+        <div class="quote-display" id="quoteDisplay">
+            <div>
+                <div id="quoteText">Click the button to get a random quote!</div>
+                <div class="author" id="quoteAuthor"></div>
+            </div>
+        </div>
+       
+        <!-- Generate Button: When clicked, should pick and display a random quote -->
+        <button class="quote-btn" onclick="generateQuote()">Get Random Quote</button>
+    </div>
+{% endblock %}
+
+
+{% block modal_content %}
+    <h3>How This Page Should Work:</h3>
+    <ul>
+        <li><strong>Quote Display (div#quoteDisplay):</strong> Container that shows the quote text and author. Initially shows a placeholder message.</li>
+        <li><strong>Quote Text (div#quoteText):</strong> Displays the quote message.</li>
+        <li><strong>Quote Author (div#quoteAuthor):</strong> Displays the author of the quote.</li>
+        <li><strong>Generate Button:</strong> When clicked, should:
+            <ul>
+                <li>Select a random quote from a predefined array of quotes</li>
+                <li>Update the quote text element with the selected quote</li>
+                <li>Update the author element with the quote's author</li>
+            </ul>
+        </li>
+        <li><strong>Quotes Array:</strong> Contains multiple quote objects, each with a "text" and "author" property. The function should randomly pick one each time.</li>
+    </ul>
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        // Array of quotes with text and author
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "Life is what happens to you while you're busy making other plans.", author: "John Lennon" },
+            { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+            { text: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle" },
+            { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+            { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+            { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" }
+        ];
+       
+        // This function generates and displays a random quote
+        // function generateQuote() {
+        //     // Generate a random index between 0 and the length of the quotes array
+        //     let randomIndex = Math.floor(Math.random() * _____________________);
+           
+        //     // Get the quote at that random index
+        //     let selectedQuote = quotes[__________________];
+           
+        //     // Update the quote text element
+        //     document.getElementById('quoteText').textContent = selectedQuote.text;
+           
+        //     // Update the author element
+        //     document.getElementById('quoteAuthor').textContent = "— " + selectedQuote.__________________;
+        // }
+
+
+        function generateQuote() {
+    let randomIndex = Math.floor(Math.random() * quotes.length);
+    let selectedQuote = quotes[randomIndex];
+
+
+    document.getElementById('quoteText').textContent = selectedQuote.text;
+    document.getElementById('quoteAuthor').textContent = "— " + selectedQuote.author;
+}
+
+
+    </script>
+{% endblock %}
